@@ -1104,24 +1104,20 @@ async def calcular_ruta(req: RutaRequest):
         raise HTTPException(500, "Error calculando la ruta entre los puntos.")
 
     # Velocidad: usa la indicada o estima automáticamente
+    vel = 80  # default
     if req.velocidad_kmh:
         vel = req.velocidad_kmh
         tiempo_min = int((distancia / vel) * 60)
     elif distancia <= 30:
-        # Urbano — usar velocidad de la ciudad
         vel = estimar_velocidad(geo_d["nombre"])
         tiempo_min = int((distancia / vel) * 60)
     elif distancia <= 150:
-        # Corto — factor 1.20x
         tiempo_min = int((distancia / 80) * 1.20 * 60)
     elif distancia <= 350:
-        # Medio-corto — factor 1.30x
         tiempo_min = int((distancia / 80) * 1.30 * 60)
     elif distancia <= 600:
-        # Medio — factor 1.45x
         tiempo_min = int((distancia / 80) * 1.45 * 60)
     else:
-        # Largo — factor 1.70x (paradas intermedias, peajes, pueblos)
         tiempo_min = int((distancia / 80) * 1.70 * 60)
 
     return RutaResponse(
