@@ -1025,9 +1025,33 @@ class RutaResponse(BaseModel):
     fecha_consulta: str
 
 async def geocodificar_libre(direccion: str, ciudad: Optional[str] = None) -> Optional[dict]:
-    """Geocodifica cualquier dirección en Colombia sin restricción de bbox."""
-    dir_limpia = direccion.replace("#", "").replace("  ", " ").strip()
+    """
+    Geocodifica cualquier dirección en Colombia.
+    Si la dirección coincide con una terminal conocida, usa sus coordenadas exactas.
+    Solo consulta Mapbox para direcciones de clientes.
+    """
+    dir_lower = direccion.lower().strip()
 
+    # Verificar si es una terminal conocida
+    for key, terminal in TERMINALES.items():
+        nombre_lower = terminal["nombre"].lower()
+        ciudad_lower = terminal["ciudad"].lower()
+        # Coincide si menciona el nombre de la terminal o la ciudad + "terminal"
+        if (nombre_lower in dir_lower or
+            dir_lower in nombre_lower or
+            (ciudad_lower in dir_lower and "terminal" in dir_lower)):
+            # Para Medellín con ambigüedad usar Norte por defecto
+            if key == "medellin_sur" and "sur" not in dir_lower:
+                continue
+            logger.info(f"Terminal reconocida: {terminal['nombre']}")
+            return {
+                "lon": terminal["lon"],
+                "lat": terminal["lat"],
+                "nombre": terminal["nombre"],
+            }
+
+    # No es terminal — geocodificar con Mapbox
+    dir_limpia = direccion.replace("#", "").replace("  ", " ").strip()
     if ciudad and ciudad.lower() not in dir_limpia.lower():
         dir_completa = f"{dir_limpia}, {ciudad}, Colombia"
     else:
