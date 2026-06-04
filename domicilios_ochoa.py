@@ -27,7 +27,6 @@ logger = logging.getLogger(__name__)
 
 import os
 MAPBOX_TOKEN = os.environ.get("MAPBOX_TOKEN", "")
-OSRM_URL     = "http://router.project-osrm.org/route/v1/driving"
 
 RASTREO_BASE = "https://rapidoochoa.tmsolutions.com.co/tmland/faces/public/tmland-carga/cotizador_envios.xhtml"
 RASTREO_PARAM = "?parametroInicial=cmFwaWRvb2Nob2E="
@@ -810,18 +809,19 @@ async def geocodificar(direccion: str, terminal: dict) -> Optional[dict]:
         return None
 
 async def calcular_distancia(lon_o, lat_o, lon_d, lat_d) -> Optional[float]:
-    """Calcula distancia en km por carretera usando OSRM."""
+    """Calcula distancia en km por carretera usando Mapbox Directions."""
     try:
         r = await client.get(
-            f"{OSRM_URL}/{lon_o},{lat_o};{lon_d},{lat_d}",
-            params={"overview": "false"}
+            f"https://api.mapbox.com/directions/v5/mapbox/driving/{lon_o},{lat_o};{lon_d},{lat_d}",
+            params={"access_token": MAPBOX_TOKEN, "overview": "false"}
         )
         data = r.json()
-        if data.get("code") == "Ok":
-            return round(data["routes"][0]["distance"] / 1000, 1)
+        routes = data.get("routes", [])
+        if routes:
+            return round(routes[0]["distance"] / 1000, 1)
         return None
     except Exception as e:
-        logger.error(f"Error OSRM: {e}")
+        logger.error(f"Error Mapbox Directions: {e}")
         return None
 
 def obtener_zona(distancia_km: float) -> dict:
