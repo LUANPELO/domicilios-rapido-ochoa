@@ -54,8 +54,8 @@ TERMINALES = {
     "medellin_norte": {
         "nombre": "Terminal de Transporte Norte",
         "ciudad": "Medellín",
-        "lat": 6.2909,
-        "lon": -75.5565,
+        "lat": 6.2786489,
+        "lon": -75.5710903,
         "bbox": "-75.70,6.10,-75.45,6.42",
         "vel_kmh": 22,
         "departamento": "Antioquia",
@@ -63,8 +63,8 @@ TERMINALES = {
     "medellin_sur": {
         "nombre": "Terminal de Transporte Sur",
         "ciudad": "Medellín",
-        "lat": 6.1948,
-        "lon": -75.5900,
+        "lat": 6.2164482,
+        "lon": -75.5872220,
         "bbox": "-75.70,6.10,-75.45,6.42",
         "vel_kmh": 22,
         "departamento": "Antioquia",
@@ -72,8 +72,8 @@ TERMINALES = {
     "monteria": {
         "nombre": "Terminal de Transportes de Montería",
         "ciudad": "Montería",
-        "lat": 8.7580,
-        "lon": -75.8810,
+        "lat": 8.7485874,
+        "lon": -75.8671895,
         "bbox": "-76.00,8.65,-75.75,8.85",
         "vel_kmh": 25,
         "departamento": "Córdoba",
@@ -81,8 +81,8 @@ TERMINALES = {
     "cartagena": {
         "nombre": "Terminal de Transportes de Cartagena",
         "ciudad": "Cartagena",
-        "lat": 10.3996,
-        "lon": -75.5144,
+        "lat": 10.4004639,
+        "lon": -75.4583308,
         "bbox": "-75.65,10.30,-75.45,10.50",
         "vel_kmh": 22,
         "departamento": "Bolívar",
@@ -90,8 +90,8 @@ TERMINALES = {
     "sincelejo": {
         "nombre": "Terminal de Transportes de Sincelejo",
         "ciudad": "Sincelejo",
-        "lat": 9.3040,
-        "lon": -75.3980,
+        "lat": 9.2953147,
+        "lon": -75.3830775,
         "bbox": "-75.55,9.20,-75.25,9.40",
         "vel_kmh": 25,
         "departamento": "Sucre",
@@ -99,53 +99,53 @@ TERMINALES = {
     "santa_marta": {
         "nombre": "Terminal de Transportes de Santa Marta",
         "ciudad": "Santa Marta",
-        "lat": 11.2274,
-        "lon": -74.1889,
+        "lat": 11.2217510,
+        "lon": -74.1808933,
         "bbox": "-74.30,11.15,-74.05,11.30",
         "vel_kmh": 22,
         "departamento": "Magdalena",
     },
     "bogota": {
-        "nombre": "Terminal de Transportes de Bogotá",
+        "nombre": "Terminal de Transportes Salitre",
         "ciudad": "Bogotá",
-        "lat": 4.6572,
-        "lon": -74.1027,
+        "lat": 4.6538763,
+        "lon": -74.1155898,
         "bbox": "-74.25,4.50,-73.95,4.83",
         "vel_kmh": 18,
         "departamento": "Cundinamarca",
     },
     "caucasia": {
-        "nombre": "Terminal de Caucasia",
+        "nombre": "Terminal de Transportes de Caucasia",
         "ciudad": "Caucasia",
-        "lat": 7.9893,
-        "lon": -75.1993,
+        "lat": 7.9740551,
+        "lon": -75.2046546,
         "bbox": "-75.35,7.90,-75.10,8.08",
         "vel_kmh": 25,
         "departamento": "Antioquia",
     },
     "quibdo": {
-        "nombre": "Terminal de Quibdó",
+        "nombre": "Terminal de Transportes de Quibdó",
         "ciudad": "Quibdó",
-        "lat": 5.6919,
-        "lon": -76.6583,
+        "lat": 5.6533339,
+        "lon": -76.6445217,
         "bbox": "-76.80,5.60,-76.55,5.80",
         "vel_kmh": 22,
         "departamento": "Chocó",
     },
     "riohacha": {
-        "nombre": "Terminal de Riohacha",
+        "nombre": "Terminal de Transportes de Riohacha",
         "ciudad": "Riohacha",
-        "lat": 11.5444,
-        "lon": -72.9072,
+        "lat": 11.5410043,
+        "lon": -72.9112228,
         "bbox": "-73.05,11.46,-72.80,11.62",
         "vel_kmh": 25,
         "departamento": "La Guajira",
     },
     "maicao": {
-        "nombre": "Terminal de Maicao",
+        "nombre": "Terminal de Transportes Centrama de Maicao",
         "ciudad": "Maicao",
-        "lat": 11.3763,
-        "lon": -72.2453,
+        "lat": 11.3816734,
+        "lon": -72.2298330,
         "bbox": "-72.35,11.30,-72.15,11.45",
         "vel_kmh": 25,
         "departamento": "La Guajira",
@@ -153,59 +153,447 @@ TERMINALES = {
     "planeta_rica": {
         "nombre": "Terminal de Planeta Rica",
         "ciudad": "Planeta Rica",
-        "lat": 8.4077,
-        "lon": -75.5864,
+        "lat": 8.4076739,
+        "lon": -75.5840456,
         "bbox": "-75.70,8.33,-75.50,8.48",
         "vel_kmh": 25,
         "departamento": "Córdoba",
     },
+    "arboletes": {
+        "nombre": "Terminal de Arboletes",
+        "ciudad": "Arboletes",
+        "lat": 8.8528266, "lon": -76.4273168,
+        "bbox": "-76.55,8.78,-76.35,8.92",
+        "vel_kmh": 25, "departamento": "Antioquia",
+    },
+    "lorica": {
+        "nombre": "Terminal de Lorica",
+        "ciudad": "Lorica",
+        "lat": 9.2394583, "lon": -75.8139786,
+        "bbox": "-75.95,9.17,-75.70,9.31",
+        "vel_kmh": 25, "departamento": "Córdoba",
+    },
+    "cerete": {
+        "nombre": "Terminal de Cereté",
+        "ciudad": "Cereté",
+        "lat": 8.8821682, "lon": -75.7901358,
+        "bbox": "-75.93,8.83,-75.70,8.94",
+        "vel_kmh": 25, "departamento": "Córdoba",
+    },
+    "la_apartada": {
+        "nombre": "Terminal de La Apartada",
+        "ciudad": "La Apartada",
+        "lat": 8.0484697, "lon": -75.3336510,
+        "bbox": "-75.45,8.00,-75.25,8.10",
+        "vel_kmh": 25, "departamento": "Córdoba",
+    },
+    "san_antero": {
+        "nombre": "Terminal de San Antero",
+        "ciudad": "San Antero",
+        "lat": 9.3730160, "lon": -75.7595056,
+        "bbox": "-75.85,9.32,-75.70,9.43",
+        "vel_kmh": 25, "departamento": "Córdoba",
+    },
+    "covenas": {
+        "nombre": "Terminal de Coveñas",
+        "ciudad": "Coveñas",
+        "lat": 9.4017581, "lon": -75.6787017,
+        "bbox": "-75.75,9.35,-75.62,9.45",
+        "vel_kmh": 25, "departamento": "Sucre",
+    },
+    "tolu": {
+        "nombre": "Terminal de Tolú",
+        "ciudad": "Tolú",
+        "lat": 9.5241138, "lon": -75.5841794,
+        "bbox": "-75.65,9.47,-75.53,9.57",
+        "vel_kmh": 25, "departamento": "Sucre",
+    },
+    "san_marcos": {
+        "nombre": "Terminal de San Marcos",
+        "ciudad": "San Marcos",
+        "lat": 8.6618609, "lon": -75.1307644,
+        "bbox": "-75.22,8.61,-75.05,8.71",
+        "vel_kmh": 25, "departamento": "Sucre",
+    },
+    "magangue": {
+        "nombre": "Terminal de Magangué",
+        "ciudad": "Magangué",
+        "lat": 9.2412097, "lon": -74.7567413,
+        "bbox": "-74.85,9.18,-74.68,9.30",
+        "vel_kmh": 25, "departamento": "Bolívar",
+    },
+    "carmen_bolivar": {
+        "nombre": "Terminal de Carmen de Bolívar",
+        "ciudad": "Carmen de Bolívar",
+        "lat": 9.7200000, "lon": -75.1200000,
+        "bbox": "-75.20,9.67,-75.05,9.77",
+        "vel_kmh": 25, "departamento": "Bolívar",
+    },
+    "cienaga": {
+        "nombre": "Terminal de Ciénaga",
+        "ciudad": "Ciénaga",
+        "lat": 11.0049561, "lon": -74.2534483,
+        "bbox": "-74.32,10.96,-74.20,11.05",
+        "vel_kmh": 25, "departamento": "Magdalena",
+    },
+    "la_dorada": {
+        "nombre": "Terminal de La Dorada",
+        "ciudad": "La Dorada",
+        "lat": 5.4457655, "lon": -74.6618458,
+        "bbox": "-74.75,5.40,-74.60,5.50",
+        "vel_kmh": 25, "departamento": "Caldas",
+    },
+    "puerto_berrio": {
+        "nombre": "Terminal de Puerto Berrío",
+        "ciudad": "Puerto Berrío",
+        "lat": 6.4899205, "lon": -74.4020634,
+        "bbox": "-74.48,6.44,-74.35,6.54",
+        "vel_kmh": 25, "departamento": "Antioquia",
+    },
+    "jardin": {
+        "nombre": "Terminal de Jardín",
+        "ciudad": "Jardín",
+        "lat": 5.5990503, "lon": -75.8191833,
+        "bbox": "-75.88,5.55,-75.77,5.64",
+        "vel_kmh": 22, "departamento": "Antioquia",
+    },
+    "urrao": {
+        "nombre": "Terminal de Urrao",
+        "ciudad": "Urrao",
+        "lat": 6.3168685, "lon": -76.1344983,
+        "bbox": "-76.20,6.27,-76.07,6.37",
+        "vel_kmh": 22, "departamento": "Antioquia",
+    },
+    "ciudad_bolivar": {
+        "nombre": "Terminal de Ciudad Bolívar",
+        "ciudad": "Ciudad Bolívar",
+        "lat": 5.8500342, "lon": -76.0208666,
+        "bbox": "-76.09,5.80,-75.96,5.90",
+        "vel_kmh": 22, "departamento": "Antioquia",
+    },
+    "istmina": {
+        "nombre": "Terminal de Istmina",
+        "ciudad": "Istmina",
+        "lat": 5.1593099, "lon": -76.6855280,
+        "bbox": "-76.76,5.11,-76.63,5.21",
+        "vel_kmh": 22, "departamento": "Chocó",
+    },
+    "condoto": {
+        "nombre": "Terminal de Condoto",
+        "ciudad": "Condoto",
+        "lat": 5.0956800, "lon": -76.5114837,
+        "bbox": "-76.58,5.05,-76.46,5.14",
+        "vel_kmh": 22, "departamento": "Chocó",
+    },
+    "tutunendo": {
+        "nombre": "Terminal de Tutunendo",
+        "ciudad": "Tutunendo",
+        "lat": 5.7443478, "lon": -76.5407756,
+        "bbox": "-76.60,5.70,-76.50,5.79",
+        "vel_kmh": 22, "departamento": "Chocó",
+    },
+    "rionegro": {
+        "nombre": "Terminal de Rionegro",
+        "ciudad": "Rionegro",
+        "lat": 6.1511683, "lon": -75.3729322,
+        "bbox": "-75.44,6.10,-75.31,6.20",
+        "vel_kmh": 22, "departamento": "Antioquia",
+    },
+    "san_onofre": {
+        "nombre": "Terminal de San Onofre",
+        "ciudad": "San Onofre",
+        "lat": 9.7386264, "lon": -75.5234228,
+        "bbox": "-75.60,9.69,-75.47,9.79",
+        "vel_kmh": 25, "departamento": "Bolívar",
+    },
+    "mompox": {
+        "nombre": "Terminal de Mompox",
+        "ciudad": "Mompox",
+        "lat": 9.2265049, "lon": -74.4178595,
+        "bbox": "-74.48,9.19,-74.37,9.27",
+        "vel_kmh": 22, "departamento": "Bolívar",
+    },
+    "valledupar": {
+        "nombre": "Terminal de Valledupar",
+        "ciudad": "Valledupar",
+        "lat": 10.3431115, "lon": -73.3757934,
+        "bbox": "-73.46,10.29,-73.29,10.40",
+        "vel_kmh": 25, "departamento": "Cesar",
+    },
+    "yarumal": {
+        "nombre": "Terminal de Yarumal",
+        "ciudad": "Yarumal",
+        "lat": 6.9625927, "lon": -75.4165529,
+        "bbox": "-75.48,6.92,-75.37,7.01",
+        "vel_kmh": 25, "departamento": "Antioquia",
+    },
+    "taraza": {
+        "nombre": "Terminal de Tarazá",
+        "ciudad": "Tarazá",
+        "lat": 7.5804751, "lon": -75.3998498,
+        "bbox": "-75.47,7.53,-75.34,7.63",
+        "vel_kmh": 25, "departamento": "Antioquia",
+    },
+    "caicedo": {
+        "nombre": "Terminal de Caicedo",
+        "ciudad": "Caicedo",
+        "lat": 6.4059550, "lon": -75.9825592,
+        "bbox": "-76.05,6.36,-75.93,6.45",
+        "vel_kmh": 22, "departamento": "Antioquia",
+    },
+    "giraldo": {
+        "nombre": "Terminal de Giraldo",
+        "ciudad": "Giraldo",
+        "lat": 6.6804539, "lon": -75.9533800,
+        "bbox": "-76.01,6.64,-75.90,6.72",
+        "vel_kmh": 22, "departamento": "Antioquia",
+    },
+    "andes": {
+        "nombre": "Terminal de Andes",
+        "ciudad": "Andes",
+        "lat": 5.6556134, "lon": -75.8776753,
+        "bbox": "-75.94,5.61,-75.82,5.70",
+        "vel_kmh": 22, "departamento": "Antioquia",
+    },
+    "concordia": {
+        "nombre": "Terminal de Concordia",
+        "ciudad": "Concordia",
+        "lat": 6.0457595, "lon": -75.9074199,
+        "bbox": "-75.97,6.00,-75.86,6.09",
+        "vel_kmh": 22, "departamento": "Antioquia",
+    },
+    "betulia": {
+        "nombre": "Terminal de Betulia",
+        "ciudad": "Betulia",
+        "lat": 6.1134294, "lon": -75.9845433,
+        "bbox": "-76.05,6.07,-75.93,6.16",
+        "vel_kmh": 22, "departamento": "Antioquia",
+    },
+    "bolombolo": {
+        "nombre": "Terminal de Bolombolo",
+        "ciudad": "Bolombolo",
+        "lat": 5.9705417, "lon": -75.8372203,
+        "bbox": "-75.90,5.93,-75.78,6.01",
+        "vel_kmh": 22, "departamento": "Antioquia",
+    },
+    "sahagun": {
+        "nombre": "Terminal de Sahagún",
+        "ciudad": "Sahagún",
+        "lat": 8.9472964, "lon": -75.4434972,
+        "bbox": "-75.52,8.90,-75.39,9.00",
+        "vel_kmh": 25, "departamento": "Córdoba",
+    },
+    "chinu": {
+        "nombre": "Terminal de Chinú",
+        "ciudad": "Chinú",
+        "lat": 9.1063553, "lon": -75.3989007,
+        "bbox": "-75.47,9.06,-75.34,9.16",
+        "vel_kmh": 25, "departamento": "Córdoba",
+    },
 }
 
 # Mapeo de palabras clave en la sede de trazabilidad → terminal
+# Se evalúan en orden — los más específicos primero
 SEDE_A_TERMINAL = {
-    "SOLEDAD":       "barranquilla",
-    "BARRANQUILLA":  "barranquilla",
-    "TERMINAL NORTE": "medellin_norte",
-    "MEDELLIN TERMINAL DE TRANSPORTE NORTE": "medellin_norte",
-    "TERMINAL SUR":  "medellin_sur",
-    "MEDELLIN TERMINAL DE TRANSPORTE SUR": "medellin_sur",
-    "MEDELLIN":      "medellin_norte",
-    "MONTERIA":      "monteria",
-    "CARTAGENA":     "cartagena",
-    "SINCELEJO":     "sincelejo",
-    "SANTA MARTA":   "santa_marta",
-    "BOGOTA":        "bogota",
-    "CAUCASIA":      "caucasia",
-    "QUIBDO":        "quibdo",
-    "RIOHACHA":      "riohacha",
-    "MAICAO":        "maicao",
-    "PLANETA RICA":  "planeta_rica",
+    # Barranquilla / Soledad
+    "SOLEDAD":                              "barranquilla",
+    "BARRANQUILLA":                         "barranquilla",
+    # Medellín — específicos primero
+    "TERMINAL DE TRANSPORTE NORTE":         "medellin_norte",
+    "TERMINAL NORTE":                       "medellin_norte",
+    "MEDELLIN TERMINAL DE TRANSPORTE NORTE":"medellin_norte",
+    "TERMINAL DE TRANSPORTE SUR":           "medellin_sur",
+    "TERMINAL SUR":                         "medellin_sur",
+    "MEDELLIN TERMINAL DE TRANSPORTE SUR":  "medellin_sur",
+    # Chocó → siempre Terminal Sur Medellín
+    "QUIBDO":                               "medellin_sur",
+    "ISTMINA":                              "medellin_sur",
+    "CONDOTO":                              "medellin_sur",
+    "TUTUNENDO":                            "medellin_sur",
+    # Otras ciudades
+    "MONTERIA":                             "monteria",
+    "CARTAGENA":                            "cartagena",
+    "SINCELEJO":                            "sincelejo",
+    "SANTA MARTA":                          "santa_marta",
+    "BOGOTA":                               "bogota",
+    "CAUCASIA":                             "caucasia",
+    "PLANETA RICA":                         "planeta_rica",
+    "RIOHACHA":                             "riohacha",
+    "MAICAO":                               "maicao",
+    "MAGANGUE":                             "cartagena",
+    "LORICA":                               "monteria",
+    "CERETE":                               "monteria",
+    "TOLU":                                 "sincelejo",
+    "COVENAS":                              "sincelejo",
+    # Medellín genérico → Norte
+    "MEDELLIN":                             "medellin_norte",
+    # Córdoba
+    "ARBOLETES":                            "arboletes",
+    "LORICA":                               "lorica",
+    "CERETE":                               "cerete",
+    "LA APARTADA":                          "la_apartada",
+    "SAN ANTERO":                           "san_antero",
+    "SAHAGUN":                              "sahagun",
+    "CHINU":                                "chinu",
+    # Sucre
+    "COVENAS":                              "covenas",
+    "TOLU":                                 "tolu",
+    "SAN MARCOS":                           "san_marcos",
+    "SAN ONOFRE":                           "san_onofre",
+    # Bolívar
+    "MAGANGUE":                             "magangue",
+    "CARMEN DE BOLIVAR":                    "carmen_bolivar",
+    "MOMPOX":                               "mompox",
+    # Magdalena
+    "CIENAGA":                              "cienaga",
+    # Caldas / Antioquia
+    "LA DORADA":                            "la_dorada",
+    "PUERTO BERRIO":                        "puerto_berrio",
+    "YARUMAL":                              "yarumal",
+    "TARAZA":                               "taraza",
+    "RIONEGRO":                             "rionegro",
+    "CAICEDO":                              "caicedo",
+    "GIRALDO":                              "giraldo",
+    "ANDES":                                "andes",
+    "CONCORDIA":                            "concordia",
+    "BETULIA":                              "betulia",
+    "BOLOMBOLO":                            "bolombolo",
+    "JARDIN":                               "jardin",
+    "URRAO":                                "urrao",
+    "CIUDAD BOLIVAR":                       "ciudad_bolivar",
+    # Chocó
+    "ISTMINA":                              "istmina",
+    "CONDOTO":                              "condoto",
+    "TUTUNENDO":                            "tutunendo",
+    # Guajira / Cesar
+    "VALLEDUPAR":                           "valledupar",
 }
 
-# Mapeo ciudad destino (del campo destino de la guía) → terminal
+# Mapeo ciudad/departamento destino → terminal
+# Medellín Norte: rutas del norte/caribe (subiendo desde Medellín)
+# Medellín Sur: rutas del sur/pacífico (bajando desde Medellín)
 CIUDAD_A_TERMINAL = {
+    # Atlántico
     "BARRANQUILLA": "barranquilla",
     "ATLANTICO":    "barranquilla",
     "SOLEDAD":      "barranquilla",
-    "MEDELLIN":     "medellin_norte",
-    "ANTIOQUIA":    "medellin_norte",
-    "MONTERIA":     "monteria",
-    "CORDOBA":      "monteria",
+    # Bolívar
     "CARTAGENA":    "cartagena",
     "BOLIVAR":      "cartagena",
+    "MAGANGUE":     "cartagena",
+    "CARMEN DE BOLIVAR": "cartagena",
+    "MOMPOX":       "cartagena",
+    # Córdoba → Terminal Norte Medellín o Montería
+    "MONTERIA":     "monteria",
+    "CORDOBA":      "monteria",
+    "PLANETA RICA": "planeta_rica",
+    "CAUCASIA":     "caucasia",
+    "LORICA":       "monteria",
+    "CERETE":       "monteria",
+    "CHINU":        "monteria",
+    "LA APARTADA":  "monteria",
+    "SAN ANTERO":   "monteria",
+    # Sucre
     "SINCELEJO":    "sincelejo",
     "SUCRE":        "sincelejo",
+    "TOLU":         "sincelejo",
+    "COVENAS":      "sincelejo",
+    "SAN MARCOS":   "sincelejo",
+    "SAHAGUN":      "sincelejo",
+    # Magdalena
     "SANTA MARTA":  "santa_marta",
     "MAGDALENA":    "santa_marta",
-    "BOGOTA":       "bogota",
-    "CUNDINAMARCA": "bogota",
-    "CAUCASIA":     "caucasia",
-    "QUIBDO":       "quibdo",
-    "CHOCO":        "quibdo",
+    "CIENAGA":      "santa_marta",
+    # La Guajira
     "RIOHACHA":     "riohacha",
     "MAICAO":       "maicao",
     "GUAJIRA":      "riohacha",
-    "PLANETA RICA": "planeta_rica",
+    # Cundinamarca
+    "BOGOTA":       "bogota",
+    "CUNDINAMARCA": "bogota",
+    "FACATATIVA":   "bogota",
+    # Antioquia — norte (Terminal Norte)
+    "CAUCASIA":     "caucasia",
+    "TARAZA":       "medellin_norte",
+    "YARUMAL":      "medellin_norte",
+    "ARBOLETES":    "medellin_norte",
+    "PUERTO BERRIO": "medellin_norte",
+    "LA DORADA":    "medellin_norte",
+    "RIONEGRO":     "medellin_norte",
+    # Antioquia — sur/pacífico (Terminal Sur)
+    "QUIBDO":       "medellin_sur",
+    "CHOCO":        "medellin_sur",
+    "ISTMINA":      "medellin_sur",
+    "CONDOTO":      "medellin_sur",
+    "TUTUNENDO":    "medellin_sur",
+    "EL SIETE":     "medellin_sur",
+    "JARDIN":       "medellin_sur",
+    "URRAO":        "medellin_sur",
+    "CIUDAD BOLIVAR": "medellin_sur",
+    "BOLOMBOLO":    "medellin_sur",
+    "ANDES":        "medellin_sur",
+    "CONCORDIA":    "medellin_sur",
+    "BETULIA":      "medellin_sur",
+    "CAICEDO":      "medellin_sur",
+    "GIRALDO":      "medellin_sur",
+    # Medellín genérico → Norte por defecto
+    "MEDELLIN":         "medellin_norte",
+    "ANTIOQUIA":        "medellin_norte",
+    # Córdoba adicionales
+    "ARBOLETES":        "arboletes",
+    "LORICA":           "lorica",
+    "CERETE":           "cerete",
+    "CERETÉ":           "cerete",
+    "LA APARTADA":      "la_apartada",
+    "SAN ANTERO":       "san_antero",
+    "SAHAGUN":          "sahagun",
+    "SAHAGÚN":          "sahagun",
+    "CHINU":            "chinu",
+    "CHINÚ":            "chinu",
+    # Sucre adicionales
+    "COVENAS":          "covenas",
+    "COVEÑAS":          "covenas",
+    "TOLU":             "tolu",
+    "TOLÚ":             "tolu",
+    "SAN MARCOS":       "san_marcos",
+    "SAN ONOFRE":       "san_onofre",
+    # Bolívar adicionales
+    "MAGANGUE":         "magangue",
+    "MAGANGUÉ":         "magangue",
+    "CARMEN DE BOLIVAR":"carmen_bolivar",
+    "MOMPOX":           "mompox",
+    # Magdalena adicionales
+    "CIENAGA":          "cienaga",
+    "CIÉNAGA":          "cienaga",
+    # Caldas
+    "LA DORADA":        "la_dorada",
+    "CALDAS":           "la_dorada",
+    # Cesar
+    "VALLEDUPAR":       "valledupar",
+    "CESAR":            "valledupar",
+    # Antioquia adicionales → Sur
+    "JARDIN":           "jardin",
+    "JARDÍN":           "jardin",
+    "URRAO":            "urrao",
+    "CIUDAD BOLIVAR":   "ciudad_bolivar",
+    "RIONEGRO":         "rionegro",
+    "MARINILLA":        "rionegro",
+    "YARUMAL":          "yarumal",
+    "TARAZA":           "taraza",
+    "TARAZÁ":           "taraza",
+    "CAICEDO":          "caicedo",
+    "GIRALDO":          "giraldo",
+    "ANDES":            "andes",
+    "CONCORDIA":        "concordia",
+    "BETULIA":          "betulia",
+    "BOLOMBOLO":        "bolombolo",
+    # Chocó adicionales
+    "ISTMINA":          "istmina",
+    "CONDOTO":          "condoto",
+    "TUTUNENDO":        "tutunendo",
+    # Puerto Berrío
+    "PUERTO BERRIO":    "puerto_berrio",
+    "PUERTO BERRÍO":    "puerto_berrio",
 }
 
 # Tarifas por zona
@@ -483,6 +871,7 @@ async def root():
             "GET /terminales": "Terminales disponibles",
             "GET /zonas": "Tarifas por zona",
             "GET /health": "Estado del servicio",
+            "POST /ruta": "Distancia y tiempo entre cualquier punto A → B en Colombia",
         }
     }
 
@@ -549,16 +938,19 @@ async def cotizar_por_guia(req: CotizarPorGuiaRequest):
 
     terminal = TERMINALES[terminal_key]
 
-    # Verificar si la encomienda ya está disponible
-    disponible = any(e in estado.upper() for e in ESTADOS_EN_TERMINAL)
-    if not disponible:
-        raise HTTPException(
-            409,
-            f"La encomienda aún no ha llegado a la terminal. "
-            f"Estado actual: {estado}. "
-            f"El domicilio solo se puede cotizar cuando el estado sea "
-            f"'RECIBIDA EN BODEGA' o 'RECLAME EN OFICINA'."
-        )
+    # Si ya llegó a la terminal usar sede actual, si no usar ciudad destino
+    en_terminal = any(e in estado.upper() for e in ESTADOS_EN_TERMINAL)
+    if not en_terminal:
+        # Aún en camino — recalcular terminal por ciudad destino
+        terminal_key = detectar_terminal_por_destino(destino_guia)
+        if not terminal_key:
+            raise HTTPException(
+                422,
+                f"No se pudo determinar la terminal destino para la guía {req.numero_guia}. "
+                f"Destino: {destino_guia}"
+            )
+        terminal = TERMINALES[terminal_key]
+        logger.info(f"Encomienda en camino — terminal por destino: {terminal_key}")
 
     # Geocodificar destino
     geo = await geocodificar(req.direccion_destino, terminal)
@@ -611,6 +1003,139 @@ async def cotizar(req: CotizarRequest):
         raise HTTPException(500, "Error calculando la ruta.")
 
     return construir_cotizacion(terminal, geo, distancia)
+
+
+class RutaRequest(BaseModel):
+    origen: str                        # Dirección, ciudad o lugar de origen
+    destino: str                       # Dirección, ciudad o lugar de destino
+    ciudad_origen: Optional[str] = None   # Ciudad del origen (mejora precisión)
+    ciudad_destino: Optional[str] = None  # Ciudad del destino (mejora precisión)
+    velocidad_kmh: Optional[int] = None   # Velocidad promedio (default: calculada por ciudad)
+
+class RutaResponse(BaseModel):
+    exito: bool
+    origen_encontrado: str
+    destino_encontrado: str
+    origen_coords: dict
+    destino_coords: dict
+    distancia_km: float
+    tiempo_min: int
+    tiempo_formato: str
+    velocidad_usada: int
+    fecha_consulta: str
+
+async def geocodificar_libre(direccion: str, ciudad: Optional[str] = None) -> Optional[dict]:
+    """Geocodifica cualquier dirección en Colombia sin restricción de bbox."""
+    dir_limpia = direccion.replace("#", "").replace("  ", " ").strip()
+
+    if ciudad and ciudad.lower() not in dir_limpia.lower():
+        dir_completa = f"{dir_limpia}, {ciudad}, Colombia"
+    else:
+        dir_completa = f"{dir_limpia}, Colombia"
+
+    try:
+        r = await client.get(
+            f"https://api.mapbox.com/geocoding/v5/mapbox.places/{dir_completa}.json",
+            params={
+                "access_token": MAPBOX_TOKEN,
+                "country": "CO",
+                "language": "es",
+                "limit": 1,
+            }
+        )
+        features = r.json().get("features", [])
+        if features:
+            f = features[0]
+            lon, lat = f["geometry"]["coordinates"]
+            return {"lon": lon, "lat": lat, "nombre": f["place_name"]}
+        return None
+    except Exception as e:
+        logger.error(f"Error geocodificando libre: {e}")
+        return None
+
+def estimar_velocidad(nombre_lugar: str) -> int:
+    """Estima velocidad promedio según el tipo de lugar."""
+    nombre = nombre_lugar.upper()
+    # Ciudades principales con tráfico denso
+    if any(c in nombre for c in ["BOGOTÁ", "BOGOTA", "MEDELLÍN", "MEDELLIN", "CALI"]):
+        return 18
+    if any(c in nombre for c in ["BARRANQUILLA", "CARTAGENA", "BUCARAMANGA"]):
+        return 20
+    # Ciudades intermedias
+    if any(c in nombre for c in ["MONTERÍA", "MONTERIA", "SINCELEJO", "SANTA MARTA",
+                                   "PEREIRA", "MANIZALES", "ARMENIA"]):
+        return 22
+    # Municipios / carretera
+    return 55  # velocidad interurbana si son ciudades diferentes
+
+def formato_tiempo(minutos: int) -> str:
+    if minutos < 60:
+        return f"{minutos} min"
+    horas = minutos // 60
+    mins = minutos % 60
+    if mins == 0:
+        return f"{horas}h"
+    return f"{horas}h {mins}min"
+
+@app.post("/ruta", response_model=RutaResponse)
+async def calcular_ruta(req: RutaRequest):
+    """
+    Calcula distancia y tiempo entre cualquier punto A y punto B en Colombia.
+    Útil para: tiempo de viaje en bus, tiempo de entrega de encomienda,
+    distancia entre ciudades, etc.
+
+    Ejemplos:
+    - Barranquilla → Medellín (ciudades)
+    - Calle 30 #38-15 Barranquilla → Villa Country Barranquilla (direcciones)
+    - Terminal de Soledad → Calle 84 Barranquilla (mixto)
+    """
+    # Geocodificar origen y destino
+    geo_o = await geocodificar_libre(req.origen, req.ciudad_origen)
+    if not geo_o:
+        raise HTTPException(422, f"No se pudo encontrar el origen: '{req.origen}'")
+
+    geo_d = await geocodificar_libre(req.destino, req.ciudad_destino)
+    if not geo_d:
+        raise HTTPException(422, f"No se pudo encontrar el destino: '{req.destino}'")
+
+    # Calcular distancia
+    distancia = await calcular_distancia(geo_o["lon"], geo_o["lat"], geo_d["lon"], geo_d["lat"])
+    if not distancia:
+        raise HTTPException(500, "Error calculando la ruta entre los puntos.")
+
+    # Velocidad: usa la indicada o estima automáticamente
+    if req.velocidad_kmh:
+        vel = req.velocidad_kmh
+        tiempo_min = int((distancia / vel) * 60)
+    elif distancia <= 30:
+        # Urbano — usar velocidad de la ciudad
+        vel = estimar_velocidad(geo_d["nombre"])
+        tiempo_min = int((distancia / vel) * 60)
+    elif distancia <= 150:
+        # Corto — factor 1.20x
+        tiempo_min = int((distancia / 80) * 1.20 * 60)
+    elif distancia <= 350:
+        # Medio-corto — factor 1.30x
+        tiempo_min = int((distancia / 80) * 1.30 * 60)
+    elif distancia <= 600:
+        # Medio — factor 1.45x
+        tiempo_min = int((distancia / 80) * 1.45 * 60)
+    else:
+        # Largo — factor 1.70x (paradas intermedias, peajes, pueblos)
+        tiempo_min = int((distancia / 80) * 1.70 * 60)
+
+    return RutaResponse(
+        exito=True,
+        origen_encontrado=geo_o["nombre"],
+        destino_encontrado=geo_d["nombre"],
+        origen_coords={"lat": geo_o["lat"], "lon": geo_o["lon"]},
+        destino_coords={"lat": geo_d["lat"], "lon": geo_d["lon"]},
+        distancia_km=distancia,
+        tiempo_min=tiempo_min,
+        tiempo_formato=formato_tiempo(tiempo_min),
+        velocidad_usada=vel,
+        fecha_consulta=datetime.now().isoformat(),
+    )
 
 if __name__ == "__main__":
     import uvicorn
