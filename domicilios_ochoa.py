@@ -26,7 +26,7 @@ logger = logging.getLogger(__name__)
 # ── Constantes ────────────────────────────────────────────────────────────────
 
 import os
-MAPBOX_TOKEN = os.environ.get("MAPBOX_TOKEN", "")
+GOOGLE_MAPS_API_KEY = os.environ.get("GOOGLE_MAPS_API_KEY", "")
 
 RASTREO_BASE = "https://rapidoochoa.tmsolutions.com.co/tmland/faces/public/tmland-carga/cotizador_envios.xhtml"
 RASTREO_PARAM = "?parametroInicial=cmFwaWRvb2Nob2E="
@@ -753,8 +753,12 @@ def detectar_terminal_por_destino(destino: str) -> Optional[str]:
 
 # ── Geocodificación y distancia ───────────────────────────────────────────────
 
+# location_type de Google Geocoding que consideramos "exacta" (coincide con un
+# punto/predio concreto, no solo el centro de una calle/zona).
+_PRECISION_EXACTA = {"ROOFTOP", "RANGE_INTERPOLATED"}
+
 async def geocodificar(direccion: str, terminal: dict) -> Optional[dict]:
-    """Geocodifica dirección con Mapbox. Limpia el # antes de enviar."""
+    """Geocodifica dirección con Google Geocoding API. Limpia el # antes de enviar."""
     dir_limpia = direccion.replace("#", "").replace("  ", " ").strip()
     ciudad = terminal["ciudad"]
 
@@ -764,64 +768,79 @@ async def geocodificar(direccion: str, terminal: dict) -> Optional[dict]:
     else:
         dir_completa = f"{dir_limpia}, Colombia"
 
-    # Intento 1: con bbox (mejor para direcciones exactas)
+    # bbox del terminal: "minLon,minLat,maxLon,maxLat" -> bounds de Google: "south,west|north,east"
+    min_lon, min_lat, max_lon, max_lat = (float(x) for x in terminal["bbox"].split(","))
+    bounds = f"{min_lat},{min_lon}|{max_lat},{max_lon}"
+
     try:
+        # Intento 1: con bounds (mejor para direcciones exactas dentro de la ciudad del terminal)
         r = await client.get(
-            f"https://api.mapbox.com/geocoding/v5/mapbox.places/{dir_completa}.json",
+            "https://maps.googleapis.com/maps/api/geocode/json",
             params={
-                "access_token": MAPBOX_TOKEN,
-                "country": "CO",
+                "address": dir_completa,
+                "key": GOOGLE_MAPS_API_KEY,
+                "components": "country:CO",
+                "region": "co",
                 "language": "es",
-                "limit": 1,
-                "bbox": terminal["bbox"],
+                "bounds": bounds,
             }
         )
-        features = r.json().get("features", [])
-        if features:
-            f = features[0]
-            lon, lat = f["geometry"]["coordinates"]
-            return {"lon": lon, "lat": lat,
-                    "direccion_encontrada": f["place_name"],
-                    "precision": "exacta"}
+        data = r.json()
+        results = data.get("results", [])
 
-        # Intento 2: proximity (para barrios y lugares)
-        r2 = await client.get(
-            f"https://api.mapbox.com/geocoding/v5/mapbox.places/{dir_completa}.json",
-            params={
-                "access_token": MAPBOX_TOKEN,
-                "country": "CO",
-                "language": "es",
-                "limit": 1,
-                "proximity": f"{terminal['lon']},{terminal['lat']}",
-            }
-        )
-        features2 = r2.json().get("features", [])
-        if features2:
-            f2 = features2[0]
-            lon2, lat2 = f2["geometry"]["coordinates"]
-            return {"lon": lon2, "lat": lat2,
-                    "direccion_encontrada": f2["place_name"],
-                    "precision": "aproximada"}
+        # Intento 2: sin bounds (para direcciones fuera del area del terminal)
+        if not results:
+            r2 = await client.get(
+                "https://maps.googleapis.com/maps/api/geocode/json",
+                params={
+                    "address": dir_completa,
+                    "key": GOOGLE_MAPS_API_KEY,
+                    "components": "country:CO",
+                    "region": "co",
+                    "language": "es",
+                }
+            )
+            results = r2.json().get("results", [])
 
-        return None
+        if not results:
+            return None
+
+        res = results[0]
+        loc = res["geometry"]["location"]
+        location_type = res["geometry"].get("location_type", "")
+        precision = "exacta" if location_type in _PRECISION_EXACTA else "aproximada"
+        return {
+            "lon": loc["lng"], "lat": loc["lat"],
+            "direccion_encontrada": res.get("formatted_address", dir_completa),
+            "precision": precision,
+        }
     except Exception as e:
         logger.error(f"Error geocodificando: {e}")
         return None
 
 async def calcular_distancia(lon_o, lat_o, lon_d, lat_d) -> Optional[float]:
-    """Calcula distancia en km por carretera usando Mapbox Directions."""
+    """Calcula distancia en km por carretera usando Google Distance Matrix API."""
     try:
         r = await client.get(
-            f"https://api.mapbox.com/directions/v5/mapbox/driving/{lon_o},{lat_o};{lon_d},{lat_d}",
-            params={"access_token": MAPBOX_TOKEN, "overview": "false"}
+            "https://maps.googleapis.com/maps/api/distancematrix/json",
+            params={
+                "origins": f"{lat_o},{lon_o}",
+                "destinations": f"{lat_d},{lon_d}",
+                "key": GOOGLE_MAPS_API_KEY,
+                "mode": "driving",
+                "language": "es",
+                "region": "co",
+            }
         )
         data = r.json()
-        routes = data.get("routes", [])
-        if routes:
-            return round(routes[0]["distance"] / 1000, 1)
+        rows = data.get("rows", [])
+        if rows:
+            elements = rows[0].get("elements", [])
+            if elements and elements[0].get("status") == "OK":
+                return round(elements[0]["distance"]["value"] / 1000, 1)
         return None
     except Exception as e:
-        logger.error(f"Error Mapbox Directions: {e}")
+        logger.error(f"Error Google Distance Matrix: {e}")
         return None
 
 def obtener_zona(distancia_km: float) -> dict:
@@ -902,6 +921,83 @@ async def listar_zonas():
         "nota": "Precios aproximados. El colaborador puede ajustar el valor final."
     }
 
+def detectar_terminal_para_guia(guia: dict, numero_guia: str) -> tuple[str, dict, str]:
+    """
+    Determina cuál terminal se usa como punto de partida del domicilio para
+    una guía: prioriza la sede actual si la encomienda YA llegó a destino;
+    si todavía está en camino, usa la terminal de la CIUDAD DESTINO de la guía
+    (no la de origen — el domicilio sale desde donde llega el paquete, no
+    desde donde salió).
+
+    Devuelve (terminal_key, terminal_dict, estado_actual). Lanza HTTPException
+    si no se puede determinar.
+    """
+    estado = guia["estado_actual"]
+    sede   = guia["sede_actual"]
+    destino_guia = guia["destino"]
+
+    # El campo "destino" del scraper viene como "ORIGEN (DEP) - DESTINO (DEP)"
+    # (ej: "SOLEDAD (ATLANTICO) - MEDELLIN (ANTIOQUIA)"). Si buscamos la
+    # terminal en el string completo, puede matchear primero la ciudad de
+    # ORIGEN (ej: "ATLANTICO" -> barranquilla) en vez de la de destino real.
+    # Por eso nos quedamos solo con la parte después del " - ".
+    destino_real = destino_guia.split(" - ")[-1].strip() if " - " in destino_guia else destino_guia
+
+    logger.info(f"Guía {numero_guia}: estado={estado} | sede={sede} | destino={destino_guia} | destino_real={destino_real}")
+
+    # Detectar terminal — prioridad: sede actual > ciudad destino
+    terminal_key = detectar_terminal_por_sede(sede)
+    if not terminal_key:
+        terminal_key = detectar_terminal_por_destino(destino_real)
+    if not terminal_key:
+        raise HTTPException(
+            422,
+            f"No se pudo determinar la terminal para la guía {numero_guia}. "
+            f"Destino: {destino_guia} | Sede: {sede}"
+        )
+
+    terminal = TERMINALES[terminal_key]
+
+    # Si ya llegó a la terminal usar sede actual, si no usar ciudad destino
+    en_terminal = any(e in estado.upper() for e in ESTADOS_EN_TERMINAL)
+    if not en_terminal:
+        # Aún en camino — recalcular terminal por ciudad destino
+        terminal_key = detectar_terminal_por_destino(destino_real)
+        if not terminal_key:
+            raise HTTPException(
+                422,
+                f"No se pudo determinar la terminal destino para la guía {numero_guia}. "
+                f"Destino: {destino_guia}"
+            )
+        terminal = TERMINALES[terminal_key]
+        logger.info(f"Encomienda en camino — terminal por destino: {terminal_key}")
+
+    return terminal_key, terminal, estado
+
+
+@app.get("/terminal-por-guia/{numero_guia}")
+async def terminal_por_guia(numero_guia: str):
+    """
+    Devuelve la terminal que se usaría como origen del domicilio para esta
+    guía (sin geocodificar ni cotizar) — pensado para que el frontend muestre
+    al agente la terminal CORRECTA antes de cotizar (la de destino si la
+    encomienda sigue en camino, o la sede actual si ya llegó).
+    """
+    guia = await consultar_guia(numero_guia)
+    if not guia:
+        raise HTTPException(404, f"No se encontró la guía {numero_guia}")
+
+    terminal_key, terminal, estado = detectar_terminal_para_guia(guia, numero_guia)
+    return {
+        "encontrada": True,
+        "terminal_key": terminal_key,
+        "terminal_nombre": terminal["nombre"],
+        "ciudad": terminal["ciudad"],
+        "departamento": terminal["departamento"],
+        "estado_guia": estado,
+    }
+
+
 @app.post("/cotizar-por-guia", response_model=CotizacionResponse)
 async def cotizar_por_guia(req: CotizarPorGuiaRequest):
     """
@@ -919,38 +1015,7 @@ async def cotizar_por_guia(req: CotizarPorGuiaRequest):
     if not guia:
         raise HTTPException(404, f"No se encontró la guía {req.numero_guia}")
 
-    estado = guia["estado_actual"]
-    sede   = guia["sede_actual"]
-    destino_guia = guia["destino"]
-
-    logger.info(f"Guía {req.numero_guia}: estado={estado} | sede={sede} | destino={destino_guia}")
-
-    # Detectar terminal — prioridad: sede actual > ciudad destino
-    terminal_key = detectar_terminal_por_sede(sede)
-    if not terminal_key:
-        terminal_key = detectar_terminal_por_destino(destino_guia)
-    if not terminal_key:
-        raise HTTPException(
-            422,
-            f"No se pudo determinar la terminal para la guía {req.numero_guia}. "
-            f"Destino: {destino_guia} | Sede: {sede}"
-        )
-
-    terminal = TERMINALES[terminal_key]
-
-    # Si ya llegó a la terminal usar sede actual, si no usar ciudad destino
-    en_terminal = any(e in estado.upper() for e in ESTADOS_EN_TERMINAL)
-    if not en_terminal:
-        # Aún en camino — recalcular terminal por ciudad destino
-        terminal_key = detectar_terminal_por_destino(destino_guia)
-        if not terminal_key:
-            raise HTTPException(
-                422,
-                f"No se pudo determinar la terminal destino para la guía {req.numero_guia}. "
-                f"Destino: {destino_guia}"
-            )
-        terminal = TERMINALES[terminal_key]
-        logger.info(f"Encomienda en camino — terminal por destino: {terminal_key}")
+    terminal_key, terminal, estado = detectar_terminal_para_guia(guia, req.numero_guia)
 
     # Geocodificar destino
     geo = await geocodificar(req.direccion_destino, terminal)
@@ -1028,7 +1093,7 @@ async def geocodificar_libre(direccion: str, ciudad: Optional[str] = None) -> Op
     """
     Geocodifica cualquier dirección en Colombia.
     Si la dirección coincide con una terminal conocida, usa sus coordenadas exactas.
-    Solo consulta Mapbox para direcciones de clientes.
+    Solo consulta Google Geocoding para direcciones de clientes.
     """
     dir_lower = direccion.lower().strip()
 
@@ -1050,7 +1115,7 @@ async def geocodificar_libre(direccion: str, ciudad: Optional[str] = None) -> Op
                 "nombre": terminal["nombre"],
             }
 
-    # No es terminal — geocodificar con Mapbox
+    # No es terminal — geocodificar con Google Geocoding API
     dir_limpia = direccion.replace("#", "").replace("  ", " ").strip()
     if ciudad and ciudad.lower() not in dir_limpia.lower():
         dir_completa = f"{dir_limpia}, {ciudad}, Colombia"
@@ -1059,19 +1124,20 @@ async def geocodificar_libre(direccion: str, ciudad: Optional[str] = None) -> Op
 
     try:
         r = await client.get(
-            f"https://api.mapbox.com/geocoding/v5/mapbox.places/{dir_completa}.json",
+            "https://maps.googleapis.com/maps/api/geocode/json",
             params={
-                "access_token": MAPBOX_TOKEN,
-                "country": "CO",
+                "address": dir_completa,
+                "key": GOOGLE_MAPS_API_KEY,
+                "components": "country:CO",
+                "region": "co",
                 "language": "es",
-                "limit": 1,
             }
         )
-        features = r.json().get("features", [])
-        if features:
-            f = features[0]
-            lon, lat = f["geometry"]["coordinates"]
-            return {"lon": lon, "lat": lat, "nombre": f["place_name"]}
+        results = r.json().get("results", [])
+        if results:
+            res = results[0]
+            loc = res["geometry"]["location"]
+            return {"lon": loc["lng"], "lat": loc["lat"], "nombre": res.get("formatted_address", dir_completa)}
         return None
     except Exception as e:
         logger.error(f"Error geocodificando libre: {e}")
